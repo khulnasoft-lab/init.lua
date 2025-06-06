@@ -17,8 +17,8 @@ jobs:
           luaVersion: "5.4"
       - name: Install stylua
         run: |
-          curl -sSLo stylua.zip https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux.zip
-          unzip stylua.zip -d .
+          curl -sSLo stylua.tar.gz https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux-x86_64.tar.gz
+          tar -xzf stylua.tar.gz
           chmod +x stylua
       - name: Check code formatting with stylua
         run: |
