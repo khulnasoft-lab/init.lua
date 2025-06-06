@@ -15,9 +15,16 @@ jobs:
         uses: leafo/gh-actions-lua@v10
         with:
           luaVersion: "5.4"
+      - name: Install stylua
+        run: |
+          curl -sSLo stylua.zip https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux.zip
+          unzip stylua.zip -d .
+          chmod +x stylua
+      - name: Check code formatting with stylua
+        run: |
+          ./stylua --check .
       - name: Run Lua syntax check
         run: |
           for file in *.lua; do
             lua -p "$file"
           done
-      # Optionally add test runner here if you have tests (e.g., busted)
