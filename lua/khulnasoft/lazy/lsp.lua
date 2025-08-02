@@ -131,5 +131,28 @@ return {
     setup_lsp_servers(capabilities)
     setup_cmp()
     setup_diagnostics()
+
+    -- LSP keymaps (on attach)
+    vim.api.nvim_create_autocmd('LspAttach', {
+      callback = function(args)
+        local bufnr = args.buf
+        local opts = { buffer = bufnr }
+        local map = vim.keymap.set
+        map('n', 'gd', vim.lsp.buf.definition, opts)
+        map('n', 'gD', vim.lsp.buf.declaration, opts)
+        map('n', 'K', vim.lsp.buf.hover, opts)
+        map('n', 'gi', vim.lsp.buf.implementation, opts)
+        map('n', '<leader>rn', vim.lsp.buf.rename, opts)
+        map('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+        map('n', '[d', vim.diagnostic.goto_prev, opts)
+        map('n', ']d', vim.diagnostic.goto_next, opts)
+        map('n', '<leader>e', vim.diagnostic.open_float, opts)
+      end
+    })
+
+    -- Snippet choice keymap
+    vim.keymap.set({ "i", "s" }, "<C-j>", function()
+      require("luasnip").jump(1)
+    end, { silent = true, desc = "Jump to next snippet placeholder" })
   end
 }
