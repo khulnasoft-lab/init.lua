@@ -15,6 +15,15 @@ jobs:
         uses: leafo/gh-actions-lua@v10
         with:
           luaVersion: "5.4"
+      - name: Install stylua
+        run: |
+          curl -sSLo stylua.tar.gz https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux-x86_64.tar.gz
+          file stylua.tar.gz
+          tar -xzf stylua.tar.gz || (echo "Failed to extract Stylua. Please check the download URL." && exit 1)
+          chmod +x stylua
+      - name: Check code formatting with stylua
+        run: |
+          ./stylua --check .
       - name: Run Lua syntax check
         run: |
           shopt -s nullglob
