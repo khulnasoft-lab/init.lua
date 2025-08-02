@@ -17,7 +17,9 @@ jobs:
           luaVersion: "5.4"
       - name: Run Lua syntax check
         run: |
+          shopt -s nullglob
           for file in *.lua; do
-            lua -p "$file"
+            echo "::group::Syntax check: $file"
+            lua -e "assert(loadfile('$file'))"
+            echo "::endgroup::"
           done
-      # Optionally add test runner here if you have tests (e.g., busted)
