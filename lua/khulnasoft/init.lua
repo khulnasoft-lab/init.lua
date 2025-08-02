@@ -3,10 +3,12 @@
 
 -- Protected load for submodules
 local function safe_require(mod)
-  local ok, err = pcall(require, mod)
+  local ok, result = pcall(require, mod)
   if not ok then
-    vim.notify("Failed to load '" .. mod .. "': " .. err, vim.log.levels.WARN)
+    vim.notify("Failed to load '" .. mod .. "': " .. result, vim.log.levels.WARN)
+    return nil
   end
+  return result
 end
 
 safe_require("khulnasoft.set")
