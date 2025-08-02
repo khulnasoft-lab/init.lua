@@ -30,6 +30,7 @@ local function setup_lsp_servers(capabilities)
       zls = function()
         local lspconfig = require("lspconfig")
         lspconfig.zls.setup({
+          capabilities = capabilities,
           root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
           settings = {
             zls = {
