@@ -49,6 +49,7 @@ local function setup_lsp_servers(capabilities)
         local lspconfig = require("lspconfig")
         lspconfig.lua_ls.setup {
           capabilities = capabilities,
+          root_dir = lspconfig.util.root_pattern(unpack(root_files)),
           settings = {
             Lua = {
               format = {
